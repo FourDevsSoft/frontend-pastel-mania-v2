@@ -1,0 +1,68 @@
+h1{
+    margin: 0 0 1% 0;
+}
+
+
+#contain-redefinir{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -195px;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#contain-redefinir .bi-key-fill{
+    font-size: 3rem;
+    margin-bottom: 1%;
+    color: var(--cor-4);
+}
+
+input{
+    width: 30%;
+    padding: 0.60rem;
+    border: 1px solid var(--cor-20);
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: var(--cor-19);
+}
+
+#btnRedefinir{
+    padding: 0.7rem;
+    background-color: var(--cor-4);
+    color: var(--cor-1);
+    border: none;
+    margin-bottom: 2%;
+    cursor: pointer;
+    margin-top: 1vh;
+}
+
+.input-group{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.input-group i{
+    margin-left: 1rem;
+}
+
+.bi-eye .bi-eye-slash{
+    background-color: red !important;
+}
+@media (max-width:850px) {
+    #contain-redefinir{
+        margin-left: 0;
+        height: 80vh;
+    }
+
+    input{
+        width: 80%;
+    }
+
+    .input-group i{
+        margin-left: 0.5rem;
+    }
+}

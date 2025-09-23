@@ -1,0 +1,67 @@
+h1 {
+    margin: 0;
+}
+
+#contain-solicitarRedifinicao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -195px;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#contain-solicitarRedifinicao i {
+    font-size: 3rem;
+    margin-bottom: 1%;
+    color: var(--cor-4);
+}
+
+input {
+    width: 30%;
+    padding: 0.60rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--cor-20);
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: var(--cor-19);
+    margin-top: 1%;
+}
+
+.pagina-login {
+    color: var(--cor-4);
+}
+
+.mensagem-erro {
+  color: var(--cor-7);
+  font-size: 0.8rem;
+}
+
+#btnEnviar {
+    padding: 0.7rem;
+    background-color: var(--cor-4);
+    color: var(--cor-1);
+    border: none;
+    margin-bottom: 2%;
+    cursor: pointer;
+}
+
+.g-recaptcha{
+    transform: scale(0.8);
+}
+
+@media (max-width:850px) {
+    #contain-solicitarRedifinicao {
+        margin-left: 0;
+        height: 70vh;
+    }
+
+    input{
+        width: 80%;
+        margin-top: 1rem;
+    }
+
+    #btnEnviar {
+        margin-bottom: 1rem;
+    }
+}

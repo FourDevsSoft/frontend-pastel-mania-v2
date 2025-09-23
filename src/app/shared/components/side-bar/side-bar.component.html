@@ -1,0 +1,44 @@
+<app-notificacao-pop-up #popupNotificacao></app-notificacao-pop-up>
+<app-alert></app-alert>
+
+<nav id="nav">
+  <div class="menu-cabecalho">
+    <h2 class="logo-lumen"><img width="50%" src="logo.png" alt=""></h2>
+    <div class="notificacao" (click)="verNotificacoes()" >
+      <i id="icon-notification" class="bi bi-bell"></i>
+        <div class="ponto-notificacao"*ngIf="notificacaoStatus === 'true'"></div>
+    </div>
+  
+    <i id="icon-hambur" class="bi bi-list" (click)="toggleMenu()"></i>
+  </div>
+  <ul>
+    <div >
+      <li routerLinkActive="active" class="itens-menu">
+        <a [routerLink]="'/dashboard'"><i class="bi bi-grid-fill"></i>
+          <label class="text-menu">Dashboard</label></a>
+      </li>
+      <li routerLinkActive="active" class="itens-menu">
+        <a [routerLink]="'/usuario'"><i class="bi bi-person-fill"></i>
+          <label class="text-menu">Usuário</label></a>
+      </li>
+    </div>
+    <li 
+      routerLinkActive="active" class="itens-menu">
+      <a [routerLink]="'/notificacao'"><i class="bi bi-bell"></i>
+        <label class="text-menu">Notificação</label></a>
+    </li>
+
+  </ul>
+  <div class="usuario">
+    <div class="usuario-icon">
+      <i class="bi bi-person-fill"></i>
+    </div>
+    <div class="contain-nome-user">
+      <span class="nome">{{ nomeUsuario }}</span>
+ <span class="funcao">{{funcaoUsuario }}</span>
+
+      <a (click)="logout()">Sair</a>
+    </div>
+  </div>
+
+</nav>

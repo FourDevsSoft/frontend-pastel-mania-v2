@@ -1,0 +1,116 @@
+<app-banner></app-banner>
+<app-sidebar></app-sidebar>
+<app-alert></app-alert>
+
+<div class="formulario-lista-container">
+  <!-- Formulário de Criar/Editar Usuário -->
+  <div class="card-form" *ngIf="formularioVisivel">
+    <!-- Seta para voltar -->
+    <div class="voltar-container">
+      <span class="seta-voltar" (click)="limparFormulario()"><i class="bi bi-arrow-left-short"></i> Voltar</span>
+    </div>
+
+    <h3>{{ editando ? 'Atualizar' : 'Criar' }} Usuário</h3>
+
+    <span class="campo-obrigatorio">*</span>
+    <input type="text" placeholder="Nome" min="8" [(ngModel)]="nome_completo" />
+
+    <span class="campo-obrigatorio">*</span>
+    <input type="email" placeholder="Email" [(ngModel)]="email" />
+
+    <span class="campo-obrigatorio">*</span>
+    <select [(ngModel)]="funcao">
+      <option [ngValue]="null" disabled selected hidden>Selecione a função</option>
+      <option [ngValue]="1">1</option>
+      <option [ngValue]="2">2</option>
+    </select>
+    
+
+    <span class="campo-obrigatorio">*</span>
+    <input
+      type="password"
+      id="senha"
+      [(ngModel)]="senha"
+      [disabled]="editando"
+      [attr.title]="editando ? 'Edição não permite alterar a senha' : null"
+      [required]="!editando"
+      placeholder="Senha"
+    />
+
+    <button class="btn-salvar" (click)="salvar()">
+      {{ editando ? 'Atualizar' : 'Salvar' }} <i class="bi bi-check"></i>
+    </button>
+    <p class="mensagem-erro">{{ erro }}</p>
+  </div>
+
+  <!-- Grid/Listagem de Usuários -->
+  <div class="card-lista" *ngIf="!formularioVisivel">
+    <div class="top-bar-lista">
+      <input
+        type="text"
+        placeholder="🔍︎ Buscar usuário ..."
+        class="input-busca"
+        [(ngModel)]="termoBusca"
+        (ngModelChange)="buscarUsuarios()"
+      />
+      <button class="btn-novo btn-padrao" (click)="mostrarFormularioParaCriar()">Novo Usuário <i class="bi bi-plus"></i></button>
+    </div>
+
+    <h3>Usuários</h3>
+
+    <div class="usuario-grid-header">
+      <div class="col">Nome</div>
+      <div class="col">Email</div>
+      <div class="col">Função</div>
+      <div class="col">Ações</div>
+    </div>
+
+    <div class="linha-usuario" *ngFor="let u of usuarios">
+      <div class="col quebraDeLinha">{{ u.nome_completo }}</div>
+      <div class="col quebraDeLinha">{{ u.email }}</div>
+      <div class="col">{{ u.funcao }}</div>
+      <div class="col acoes">
+        <span title="Editar Usuário" class="editar" (click)="preencherFormularioParaEdicao(u)"><i class="bi bi-pencil-square"></i> Editar </span>
+        <span title="Excluir Usuário" class="deletar" (click)="toogleDeletar(u.id_usuario!)"> <i class="bi bi-trash-fill"></i></span>
+      </div>
+    </div>
+
+    <br />
+
+    <label class="texto-itens-por-pagina">
+      Itens por página:
+      <select [(ngModel)]="itensPorPagina" (change)="carregarUsuarios(1)">
+        <option [value]="10">10</option>
+        <option [value]="20">20</option>
+        <option [value]="30">30</option>
+      </select>
+    </label>
+
+    <!-- <div class="paginacao">
+      <button
+        [disabled]="!pagination.hasPrevPage"
+        (click)="carregarUsuarios(pagination.currentPage - 1)"
+        class="btn-paginacao"
+      >
+        Anterior
+      </button>
+      <span class="texto-pagincao">
+        Página {{ pagination.currentPage }} de {{ pagination.totalPages }}
+      </span>
+      <button
+        [disabled]="!pagination.hasNextPage"
+        (click)="carregarUsuarios(pagination.currentPage + 1)"
+        class="btn-paginacao"
+      >
+        Próxima
+      </button>
+    </div> -->
+  </div>
+</div>
+
+<app-confirm-pop-up
+  [message]="'Tem certeza que deseja excluir esse Usuário?'"
+  [visible]="confirmPopupVisibleUsuario"
+  (confirm)="deletarUsuario(idUsuarioParaExcluir)"
+  (cancel)="confirmPopupVisibleUsuario = false"
+/>

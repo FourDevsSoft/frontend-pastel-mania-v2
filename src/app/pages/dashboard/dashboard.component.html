@@ -1,0 +1,31 @@
+<app-sidebar></app-sidebar>
+<app-banner></app-banner>
+<app-alert></app-alert>
+<div class="dashboard-container">
+  <!-- Primeira linha de cards -->
+  <div class="cards-container">
+    <div
+      class="card"
+      *ngFor="let card of cardsLinha1"
+      [ngClass]="card.classe"
+    >
+      <div class="card-title">{{ card.titulo }}</div>
+      <div class="card-value" [class.grande]="card.destaque">
+        <strong *ngIf="card.negrito">{{ card.valor }}</strong>
+        <ng-container *ngIf="!card.negrito">{{ card.valor }}</ng-container>
+        <span class="unidade" *ngIf="card.sufixo">{{ card.sufixo }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Segunda linha de cards -->
+  <div class="cards-container segunda-linha">
+    <div
+      class="card"
+      *ngFor="let card of cardsLinha2"
+      [ngClass]="card.classe">
+      <div class="card-title">{{ card.titulo }}</div>
+      <div class="card-value">{{ card.valor }}</div>
+    </div>
+  </div>
+</div>

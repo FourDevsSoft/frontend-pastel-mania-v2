@@ -1,0 +1,33 @@
+<section id="login">
+    <div class="contain-1">
+      <div class="branding">
+        <img class="logo-contain-1" src="logo.png" alt="Logo Lúmen">
+        <!-- <p class="frase-logo">Texto aqui</p> -->
+      </div>
+    </div>
+  
+    <div class="contain-2">
+      <div class="login-container">
+        <h2>Login</h2>
+  
+        <input type="email" [(ngModel)]="email" placeholder="Email">
+  
+        <div class="password-container">
+          <input [type]="mostrarSenha ? 'text' : 'password'" [(ngModel)]="senha" placeholder="Senha">
+          <span class="input-group-text">
+            <i *ngIf="!mostrarSenha" class="bi bi-eye" (click)="mostrarSenha = !mostrarSenha"></i>
+            <i *ngIf="mostrarSenha" class="bi bi-eye-slash" (click)="mostrarSenha = !mostrarSenha"></i>
+          </span>
+  
+        </div>
+
+        <div *ngIf="carregando" class="spinner"></div>
+  
+        <button (click)="onLogin()">Entrar</button>
+  
+        <p *ngIf="mensagem" class="success">{{ mensagem }}</p>
+        <p *ngIf="mensagemErro" class="error">{{ mensagemErro }}</p>
+        <a class="pagina-login" [routerLink]="'/esquecisenha'">Esqueceu a senha? Redifinir</a>
+      </div>
+    </div>
+  </section>

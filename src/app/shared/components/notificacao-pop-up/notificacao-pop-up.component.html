@@ -1,0 +1,20 @@
+<app-alert></app-alert>
+
+<div class="overlay" *ngIf="visiblePopUpNotificacao">
+    <div class="modal">
+        <button class="fechar" (click)="fecharPopUpNotificacao()">
+            <i class="bi bi-x-lg"></i>
+        </button>
+        <h2>Notificações</h2>
+        <h6>(Até 1h atrás)</h6>
+
+        <!-- Avatar -->
+        <div class="notificacao-container">
+            <div class="notificacao-card" *ngFor="let notificacao of notificacoes">
+                <div class="mensagem">{{notificacao.mensagem}}</div>
+                <div class="hora">{{ notificacao.created_at | date:'dd/MM/yyyy HH:mm' }}</div>
+            </div>          
+        </div>
+
+    </div>
+</div>

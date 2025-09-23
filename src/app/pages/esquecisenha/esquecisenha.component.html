@@ -1,0 +1,12 @@
+<app-alert></app-alert>
+<section id="contain-solicitarRedifinicao">
+    <i class="bi bi-shield-lock-fill"></i>
+    <h1>Redefinir Senha</h1>
+    <input [(ngModel)]="email" type="text" placeholder="Email Cadastrado" />
+    <div *ngIf="carregando" class="spinner"></div>
+     <button id="btnEnviar" (click)="enviarEmail()">Enviar Email de Redefinição</button>
+    <p class="mensagem-erro" *ngIf="mensagemSucesso">{{ mensagemSucesso }}</p>
+
+    <a class="pagina-login" [routerLink]="'/login'">Lembrou? Fazer Login</a>
+
+</section>

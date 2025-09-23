@@ -1,0 +1,39 @@
+.banner-container {
+  padding: 2rem 2rem 0rem 2rem;
+}
+
+.banner-header {
+  background: linear-gradient(to right, var(--cor-4), var(--cor-5));
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 15px 0%;
+  padding-left: 10%;
+  font-size: 1.8rem;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+}
+
+
+
+.banner-header h2 {
+  margin: 0;
+  font-size: 2rem;
+  /* remove espaço padrão */
+}
+
+.banner-header i {
+  font-size: 4rem;
+  /* opcional: aumenta o ícone */
+  color: #ffffff3b;
+}
+
+@media screen and (max-width: 850px) {
+  .banner-container {
+    margin-left: 0;
+    padding: 1rem;
+  }
+}

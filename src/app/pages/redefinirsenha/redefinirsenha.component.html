@@ -1,0 +1,44 @@
+<app-alert></app-alert>
+<section id="contain-redefinir">
+  <i class="bi bi-key-fill"></i>
+  <h1>Redefinir Senha</h1>
+
+  <p *ngIf="tempoRestante">{{ tempoRestante }}</p>
+
+  <div class="input-group">
+    <input 
+      [type]="showSenha1 ? 'text' : 'password'" 
+      placeholder="Nova Senha" 
+      [(ngModel)]="senha1"
+    >
+    <i class="bi" 
+       [ngClass]="showSenha1 ? 'bi-eye-slash' : 'bi-eye'" 
+       (click)="toggleShowSenha(1)"
+       style="cursor: pointer;"
+    ></i>
+  </div>
+
+  <div class="input-group">
+    <input 
+      [type]="showSenha2 ? 'text' : 'password'" 
+      placeholder="Nova Senha novamente" 
+      [(ngModel)]="senha2"
+    >
+    <i class="bi" 
+       [ngClass]="showSenha2 ? 'bi-eye-slash' : 'bi-eye'" 
+       (click)="toggleShowSenha(2)"
+       style="cursor: pointer;"
+    ></i>
+  </div>
+
+  <p *ngIf="senha1 && senha2 && senha1 !== senha2" class="mensagem-erro">
+    As senhas não coincidem!
+  </p>
+
+  <button 
+    id="btnRedefinir" 
+    [disabled]="!senhasIguais() || tempoEsgotado" 
+    (click)="redefinirSenha()">
+    Redefinir
+  </button>
+</section>

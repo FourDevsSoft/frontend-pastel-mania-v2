@@ -1,0 +1,32 @@
+<div class="erro-container">
+    <img width="50vh" src="balao.svg" alt="">
+    <h1>Erro {{ codigo }}</h1>
+
+    @switch (codigo) {
+    @case ('403') {
+    <label>Acesso negado. Você não tem permissão.</label>
+    }
+    @case ('404') {
+    <label>Página não encontrada.</label>
+    }
+    @case ('500') {
+    <label>Erro interno do servidor.</label>
+    }
+    @default {
+    <label>Erro desconhecido.</label>
+    }
+    }
+
+    @switch (funcao) {
+    @case ('coordenador') {
+    <a routerLink="/coordenacao">Ir para a página do Coordenador</a>
+    }
+    @case ('professor') {
+    <a routerLink="/professor">Ir para a página do Professor</a>
+    }
+    @case ('auxiliar') {
+    <a routerLink="/auxiliar">Ir para a página do Auxiliar</a>
+    }
+    }
+
+</div>
