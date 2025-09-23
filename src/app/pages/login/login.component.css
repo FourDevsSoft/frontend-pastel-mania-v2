@@ -14,9 +14,10 @@
   align-items: center;
   justify-content: center;
   clip-path: polygon(87% 0, 97% 47%, 91% 100%, 0 100%, 0 0);
-  background: linear-gradient(120deg, var(--cor-4), var(--cor-5));
-  animation: gradient-animation 6s ease infinite;
-  background-size: 300% 300%;
+  background: url('/Frame 5021.png');
+  /* animation: gradient-animation 6s ease infinite; */
+  background-position-x: 50%;
+  background-size: cover;
   transition: 1s ease-in-out;
 }
 
