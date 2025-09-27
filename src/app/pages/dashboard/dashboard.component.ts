@@ -49,24 +49,24 @@ export class DashboardComponent implements OnInit {
         // Atualiza os cards após carregar os dados
         this.cardsLinha1 = [
           {
-            titulo: 'Dado1',
+            titulo: 'Clientes',
             valor: this.mediaSolicitacoesGeral,
-            sufixo: 'min/s',
+           /* sufixo: 'min/s',*/
             classe: 'azul',
             destaque: true
           },
           {
-            titulo: 'Dado2',
+            titulo: 'Média diária de entregas',
             valor: this.totalProfessor,
             classe: 'vermelho'
           },
           {
-            titulo: 'Dado3',
+            titulo: 'Funcionários(as):',
             valor: this.totalCoordenador,
             classe: 'cinza'
           },
           {
-            titulo: 'Dado4',
+            titulo: 'Motoboy',
             valor: this.totalAlunos,
             classe: 'verde',
             negrito: true
@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
 
         this.cardsLinha2 = [
           {
-            titulo: 'Dado5',
+            titulo: 'Itens no cardápio',
             valor: this.totalTurmas,
             classe: 'laranja'
           },
