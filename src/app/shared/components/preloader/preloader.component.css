@@ -8,7 +8,7 @@
     /* Começa oculto */
     justify-content: center;
     align-items: center;
-    background: rgb(118, 0, 173);
+    background: var(--cor-4);
     /* Opacidade de fundo */
     z-index: 99999;
     flex-direction: column;
@@ -32,9 +32,21 @@
     margin-bottom: 1%;
   }
 
-  .gif img{
-    width: 30px;
+  .gif img {
+    width: 120px;
+    animation: pisca 2s ease-in-out infinite;
   }
+  
+  @keyframes pisca {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3; /* pode ajustar para mais ou menos */
+    }
+  }
+  
+  
   .spinner {
     width: 20px;
     height: 20px;
