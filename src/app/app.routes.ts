@@ -7,6 +7,7 @@ import { NotificacaoComponent} from './pages/notificacao/notificacao.component';
 import { ErroComponent} from './pages/erro/erro.component';
 import { EsquecisenhaComponent} from './pages/esquecisenha/esquecisenha.component';
 import { RedefinirsenhaComponent} from './pages/redefinirsenha/redefinirsenha.component';
+import { CardapioComponent} from './pages/cardapio/cardapio.component'
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -20,7 +21,7 @@ export const routes: Routes = [
   { path: 'erro/:codigo', component: ErroComponent },
   { path: 'esquecisenha', component: EsquecisenhaComponent},
   { path: 'redefinirsenha', component: RedefinirsenhaComponent},
-
+  { path: 'cardapio', component:CardapioComponent},
 
   // Rota coringa para redirecionar caso o usuário tente acessar uma página inexistente
   { path: '**', redirectTo: 'login' }
