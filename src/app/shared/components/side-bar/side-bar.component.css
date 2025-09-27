@@ -80,7 +80,8 @@ nav ul li {
     padding: 12px 10px;
     transition: 0.3s;
     cursor: pointer;
-    color: #aaa;
+    /*color: #aaa;*/
+    color: white;
     font-size: 14px;
     -webkit-border-top-right-radius: 10px;
     -webkit-border-bottom-right-radius: 10px;
