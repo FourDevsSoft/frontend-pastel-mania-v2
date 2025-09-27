@@ -20,7 +20,8 @@ export class BannerComponent implements OnInit {
 
     const nomesAmigaveis: { [key: string]: string } = {
       dashboard: 'Dashboard',
-      usuario: 'Usuário',
+     /* usuario: 'Usuário',*/
+      cardapio: 'Cardápio',
       portoes: 'Portões',
       alunos: 'Alunos',
       responsaveis: 'Responsáveis',
@@ -35,7 +36,8 @@ export class BannerComponent implements OnInit {
 
     const icones: { [key: string]: string } = {
       dashboard: 'bi bi-grid-fill',
-      usuario: 'bi bi-person-fill',
+      /*usuario: 'bi bi-person-fill',*/
+      cardapio:  'bi bi-list-task',
       portoes: 'bi bi-door-open-fill',
       alunos: 'bi bi-people',
       responsaveis: 'bi bi-mortarboard-fill',
