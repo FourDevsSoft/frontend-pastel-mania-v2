@@ -19,7 +19,7 @@ export class ApiLoginService {
   private apiUrl: string;
 
   constructor(private globalService: GlobalService, private http: HttpClient) {
-    this.apiUrl = this.globalService.apiUrl + '/Usuarios/Login';
+    this.apiUrl = this.globalService.apiUrl + '/usuarios/login';
   }
 
   login(email: string, password: string, recaptchaToken: string): Observable<any> {

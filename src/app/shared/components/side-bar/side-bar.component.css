@@ -148,7 +148,7 @@ nav ul li i {
 
 .usuario-icon i {
     font-size: 2rem;
-    color: #3c1d75;
+    color: var(--cor-8);
 }
 
 .usuario .nome {
