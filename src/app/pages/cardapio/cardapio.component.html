@@ -1,0 +1,114 @@
+<app-banner></app-banner>
+<app-sidebar></app-sidebar>
+<app-alert></app-alert>
+
+<div class="formulario-lista-container">
+
+<!-- Formulário de Criar/Editar Item -->
+<div class="card-form" *ngIf="formularioVisivel">
+    <div class="voltar-container">
+      <span class="seta-voltar" (click)="limparFormulario()">
+        <i class="bi bi-arrow-left-short"></i> Voltar
+      </span>
+    </div>
+  
+    <h3>{{ editando ? 'Atualizar' : 'Criar' }} Item do Cardápio</h3>
+  <!-- Campo de Foto com Preview -->
+    <div class="container-imagem">
+      <div class="avatar-container">
+        <ng-container *ngIf="imagemPreview; else semImagem">
+          <img [src]="imagemPreview" class="avatar" alt="Imagem do item">
+        </ng-container>
+  
+        <ng-template #semImagem>
+          <div class="avatar vazio">
+            <i class="bi bi-image icone-fundo"></i>
+          </div>
+        </ng-template>
+  
+        <!-- Ícone de lápis para alterar -->
+        <label for="inputImagem" class="icone-lapis" title="Selecionar foto do item">
+          <i class="bi bi-pencil-fill"></i>
+        </label>
+  
+        <!-- Input real de upload -->
+        <input 
+          id="inputImagem" 
+          type="file" 
+          accept="image/*" 
+          (change)="onImagemSelecionada($event)" 
+          hidden 
+        />
+      </div>
+    </div>
+    <span class="campo-obrigatorio">*</span>
+    <input type="text" placeholder="Nome do Item" [(ngModel)]="nome" />
+  
+    <span class="campo-obrigatorio">*</span>
+    <input type="number" placeholder="Preço" [(ngModel)]="preco" />
+  
+    <span class="campo-obrigatorio">*</span>
+    <select [(ngModel)]="categoria">
+      <option [ngValue]="null" disabled selected hidden>Selecione a categoria</option>
+      <option value="Sanduíches">Sanduíches</option>
+      <option value="Pizzas">Pizzas</option>
+      <option value="Saladas">Saladas</option>
+      <option value="Bebidas">Bebidas</option>
+    </select>
+  
+    <span class="campo-obrigatorio">*</span>
+    <textarea placeholder="Descrição do item" [(ngModel)]="descricao"></textarea>
+  
+    
+  
+    <!-- Se ainda quiser manter a URL como alternativa -->
+    <input type="text" placeholder="ou cole a URL da imagem" [(ngModel)]="imagem" />
+  
+    <button class="btn-salvar" (click)="salvar()">
+      {{ editando ? 'Atualizar' : 'Salvar' }} <i class="bi bi-check"></i>
+    </button>
+  
+    <p class="mensagem-erro">{{ erro }}</p>
+  </div>
+  
+
+  <!-- Lista de Itens do Cardápio -->
+  <div *ngIf="!formularioVisivel">
+    <div class="top-bar-lista">
+      <input type="text" placeholder="🔍︎ Buscar item ..." class="input-busca" [(ngModel)]="termoBusca" />
+      <button class="btn-novo btn-padrao" (click)="mostrarFormularioParaCriar()">
+        Novo Item <i class="bi bi-plus"></i>
+      </button>
+    </div>
+
+    <div id="itensMenuCotainer">
+      <div class="itemMenuCard" *ngFor="let item of itensFiltrados">
+        <img [src]="item.imagem" alt="{{ item.nome }}" />
+
+        <div class="info">
+          <div>
+            <strong>{{ item.nome }}</strong>
+            <p>{{ item.descricao }}</p>
+            <span>R$ {{ item.preco }}</span>
+          </div>
+
+          <div class="acoes-card">
+            <span title="Editar" (click)="preencherFormularioParaEdicao(item)">
+              <i class="bi bi-pencil-square"></i>
+            </span>
+            <span title="Excluir" (click)="toogleDeletar(item.id!)">
+              <i class="bi bi-trash-fill"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-confirm-pop-up
+    [message]="'Tem certeza que deseja excluir esse item do cardápio?'"
+    [visible]="confirmPopupVisible"
+    (confirm)="deletarItem(idParaExcluir)"
+    (cancel)="confirmPopupVisible = false"
+  />
+</div>
