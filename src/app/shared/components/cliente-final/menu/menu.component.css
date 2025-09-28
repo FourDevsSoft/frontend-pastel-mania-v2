@@ -10,3 +10,28 @@
     margin-top: -11vh;
   }
 }
+
+
+nav{
+  background-color: var(--cor-4);
+}
+
+nav ul{
+  display: flex;
+  justify-content: space-between;
+}
+.logo img{
+  width: 20%;
+}
+
+.itens-menu{
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.itens-menu li{
+  cursor: pointer;
+  list-style: none;
+}
