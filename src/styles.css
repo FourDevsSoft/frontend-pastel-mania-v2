@@ -82,6 +82,18 @@ body {
   }
 }
 
+.coteudo-geral-reverso{
+  transition: all 0.5s ease-in-out;
+  margin-left: -195px;
+}
+
+@media screen and (max-width: 850px) {
+ .coteudo-geral-reverso {
+    margin-left: 0 !important;
+    margin-top: -11vh !important;
+  }
+}
+
 /* estilo globais para agilizar */
 select,
 input,

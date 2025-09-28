@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ApiNotificacaoService } from '../../../core/services/ApiNotificacao/ApiNotificacao.service';
 import { AlertService } from '../../../core/services/alertService/alert.service';
 import { Notificacao } from '../../../shared/models/notificacao.model';
-import { AlertComponent } from '../../../shared/components/alert/alert.component';
+import { AlertComponent } from '../globais/alert/alert.component';
 
 @Component({
   selector: 'app-notificacao-pop-up',

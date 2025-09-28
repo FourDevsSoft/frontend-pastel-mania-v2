@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { PreloaderComponent } from '../app/shared/components/preloader/preloader.component';
+import { PreloaderComponent } from './shared/components/globais/preloader/preloader.component';
 import { ApiNotificacaoService } from './core/services/ApiNotificacao/ApiNotificacao.service';
 import { WebsocketService } from './core/services/websocket/websoket.service'
 import { GlobalService } from './core/services/global.service';
 import { Subscription } from 'rxjs';
 import { Notificacao } from './shared/models/notificacao.model';
 import { AlertService } from './core/services/alertService/alert.service';
-import { AlertComponent } from './shared/components/alert/alert.component';
+import { AlertComponent } from './shared/components/globais/alert/alert.component';
 import { environment } from '../../src/environments/environment';
 import { CommonModule } from '@angular/common';
 @Component({
