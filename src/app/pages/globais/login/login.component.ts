@@ -33,7 +33,7 @@ export class LoginComponent implements AfterViewInit {
     this.siteKey = this.globalService.siteKey;
 
     if (localStorage.getItem('isAuthentication')) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/adm/dashboard']);
     }
   }
 
@@ -76,6 +76,7 @@ export class LoginComponent implements AfterViewInit {
           (response) => {
             this.mensagem = 'Login bem-sucedido!';
             this.respostaApi = response;
+
   
             const nomeUsuario = this.respostaApi.data.nome;
             const funcaoUsuario = this.respostaApi.data.funcao;
@@ -87,7 +88,7 @@ export class LoginComponent implements AfterViewInit {
               localStorage.setItem('funcaoUsuario', funcaoUsuario);
               localStorage.setItem('tempoExpiracaoUsuario', tempoExpiracaoUsuario);
   
-              this.router.navigate(['/dashboard']);
+              this.router.navigate(['/adm/dashboard']);
             }
   
             this.carregando = false;
