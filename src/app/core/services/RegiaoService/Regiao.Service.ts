@@ -1,37 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-
-export interface RegiaoEntrega {
-  id_regiao?: number;
-  nome: string;
-  preco: number;
-  ativo: boolean;
-}
-
-interface ListagemRegioesResponse {
-  errorMessages: string[];
-  hasErrors: boolean;
-  message: string;
-  statusCode: number;
-  data: {
-    regioes: RegiaoEntrega[];
-    paginacao: any;
-  };
-}
+import { RegiaoEntrega, RegioesResponse } from '../../../shared/models/regiao.model';
+import { GlobalService } from '../../services/global.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegiaoService {
-  private apiUrl = 'https://apiv2.pastelmania23.com.br/api/regioes';
 
-  constructor(private http: HttpClient) {}
+  private apiUrl: string;
 
+  constructor(private globalService: GlobalService, private http: HttpClient) {
+    this.apiUrl = `${this.globalService.apiUrl}/regioes`;
+  }
+  
   getAll(search?: string): Observable<RegiaoEntrega[]> {
     let url = this.apiUrl;
     if (search) url += `?search=${encodeURIComponent(search)}`;
-    return this.http.get<ListagemRegioesResponse>(url).pipe(
+    return this.http.get<RegioesResponse>(url).pipe(
       map(res => res.data.regioes)
     );
   }

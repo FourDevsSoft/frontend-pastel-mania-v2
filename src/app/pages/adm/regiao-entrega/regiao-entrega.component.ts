@@ -6,7 +6,8 @@ import { BannerComponent } from '../../../shared/components/adm/banner/banner.co
 import { ConfirmPopUpComponent } from '../../../shared/components/globais/confirm-pop-up/confirm-pop-up.component';
 import { AlertComponent } from '../../../shared/components/globais/alert/alert.component';
 import { AlertService } from '../../../core/services/alertService/alert.service';
-import { RegiaoService, RegiaoEntrega } from '../../../core/services/RegiaoService/Regiao.Service';
+import { RegiaoService } from '../../../core/services/RegiaoService/Regiao.Service';
+import { RegiaoEntrega } from '../../../shared/models/regiao.model';
 
 @Component({
   selector: 'app-regiao-entrega',

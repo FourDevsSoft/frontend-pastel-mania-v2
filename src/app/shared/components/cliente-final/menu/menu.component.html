@@ -1,8 +1,9 @@
 <nav class="coteudo-geral-reverso">
     <nav>
-        <ul>
+        <ul [ngClass]="{'expandirMenu': menuAtivo}">
             <div class="logo">
                 <img src="logo.png" alt="">
+                <i id="icon-hambur" (click)="menu()" class="bi bi-list"></i>
             </div>
 
             <div class="itens-menu">

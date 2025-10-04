@@ -5,10 +5,14 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {
+  menuAtivo = false;
 
+  menu() {
+    this.menuAtivo = !this.menuAtivo;
+  }
 }

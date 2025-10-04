@@ -88,7 +88,7 @@ export class LoginComponent implements AfterViewInit {
               localStorage.setItem('funcaoUsuario', funcaoUsuario);
               localStorage.setItem('tempoExpiracaoUsuario', tempoExpiracaoUsuario);
   
-              this.router.navigate(['/adm/dashboard']);
+              //this.router.navigate(['/adm/dashboard']);
             }
   
             this.carregando = false;

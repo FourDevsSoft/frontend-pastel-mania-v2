@@ -1,0 +1,104 @@
+#capa{
+    background-image: url('../../../../../public/capaLandingPagee.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    width: 100%;
+    height: 75vh;
+    display: flex;
+}
+
+.transicaoImg{
+    margin-top: -5%;
+    width: 100%;
+}
+
+.blocoA-capa{
+    width: 50%;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.blocoB-capa{
+    width: 50%;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.titulo-capa{
+    color: var(--cor-4);
+    font-size: 4rem;
+    margin-bottom: 1%;
+}
+
+.subTitulo-capa{
+    font-size: 1.5rem;
+    font-weight: 100;
+    color: var(--cor-2);
+    margin-top: 0;
+}
+
+.btn-pedir-delivery{
+    background-color: var(--cor-4);
+    color: var(--cor-2);
+    border: none;
+    padding: 2% 5% 2% 5%;
+    transition: 0.7s ease-in-out;
+    cursor: pointer;
+    box-shadow: 0px 0px 33px -3px rgb(rgba(255, 153, 0, 0.678));
+}
+
+.btn-pedir-delivery:hover{
+    transform: scale(1.09);
+    background-color: var(--cor-4);
+    box-shadow: 0px 0px 33px -3px rgb(255, 153, 0); 
+}
+
+.contain-status{
+    border: 4px solid var(--cor-4);
+    color: var(--cor-2);
+    font-weight: 800;
+    padding: 2% 10% 2% 10%;
+    border-radius: 5px;
+}
+
+.localizacao-maps{
+    width: 100%;
+    height: 300px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 33px -3px rgb(rgba(255, 153, 0, 0.678));
+}
+
+#localizacao{
+    margin-top: -30%;
+}
+
+@media screen and (max-width: 850px) {
+    #capa{
+        flex-direction: column;
+    }
+
+    .blocoA-capa, .blocoB-capa{
+        width:90%;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .titulo-capa{
+        font-size: 2.5rem;
+    }
+
+    .btn-pedir-delivery{
+    background-color: var(--cor-4);
+    color: var(--cor-2);
+    border: none;
+    padding: 4% 12% 4% 12%;
+}
+}
