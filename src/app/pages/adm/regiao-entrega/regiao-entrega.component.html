@@ -1,3 +1,76 @@
-<app-sidebar></app-sidebar>
 <app-banner></app-banner>
-<p>regiao-entrega works!</p>
+<app-sidebar></app-sidebar>
+<app-alert></app-alert>
+
+<div class="formulario-lista-container">
+
+  <!-- Formulário -->
+  <div class="card-form" *ngIf="formularioVisivel">
+    <div class="voltar-container">
+      <span class="seta-voltar" (click)="limparFormulario()">
+        <i class="bi bi-arrow-left-short"></i> Voltar
+      </span>
+    </div>
+
+    <h3>{{ editando ? 'Atualizar' : 'Cadastrar' }} Região de Entrega</h3>
+
+    <span class="campo-obrigatorio">*</span>
+    <input type="text" placeholder="Nome da Região" [(ngModel)]="nome" />
+
+    <span class="campo-obrigatorio">*</span>
+    <input type="number" placeholder="Preço" [(ngModel)]="preco" />
+
+    <label>
+      <input type="checkbox" [(ngModel)]="ativo" /> Ativo
+    </label>
+
+    <button class="btn-salvar" (click)="salvar()">
+      {{ editando ? 'Atualizar' : 'Salvar' }} <i class="bi bi-check"></i>
+    </button>
+
+    <p class="mensagem-erro">{{ erro }}</p>
+  </div>
+
+  <!-- Lista -->
+  <div *ngIf="!formularioVisivel">
+    <div class="top-bar-lista">
+      <input
+        type="text"
+        placeholder="🔍︎ Buscar região ..."
+        class="input-busca"
+        [(ngModel)]="termoBusca"
+      />
+      <button class="btn-novo btn-padrao" (click)="mostrarFormularioParaCriar()">
+        Nova Região <i class="bi bi-plus"></i>
+      </button>
+    </div>
+
+    <div id="itensMenuCotainer">
+      <div class="itemMenuCard" *ngFor="let reg of regioesFiltradas">
+        <div class="info">
+          <div>
+            <strong>{{ reg.nome }}</strong>
+            <span>R$ {{ reg.preco }}</span>
+            <p>Ativo: {{ reg.ativo ? 'Sim' : 'Não' }}</p>
+          </div>
+
+          <div class="acoes-card">
+            <span title="Editar" (click)="reg.id !== undefined ? preencherFormularioParaEdicao(reg) : null">
+              <i class="bi bi-pencil-square"></i>
+            </span>
+            <span title="Excluir" (click)="reg.id !== undefined ? toogleDeletar(reg.id) : null">
+              <i class="bi bi-trash-fill"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-confirm-pop-up
+    [message]="'Tem certeza que deseja excluir esta região de entrega?'"
+    [visible]="confirmPopupVisible"
+    (confirm)="idParaExcluir !== null ? deletarRegiao(idParaExcluir) : null"
+    (cancel)="confirmPopupVisible = false"
+  />
+</div>
