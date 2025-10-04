@@ -32,6 +32,8 @@ export class BannerComponent implements OnInit {
       auxiliar: 'Auxiliar',
       professor: 'Professor',
       coordenacao: 'Coordenação',
+      'regiao-entrega': 'regiao-entrega',
+
     };
 
     const icones: { [key: string]: string } = {
@@ -48,6 +50,7 @@ export class BannerComponent implements OnInit {
       auxiliar: 'bi-person-badge-fill',
       professor: 'bi-journal-text',
       coordenacao: 'bi-briefcase-fill',
+      'regiao-entrega': 'bi bi-geo-fill',
     };
 
     this.nomeDaPagina =
