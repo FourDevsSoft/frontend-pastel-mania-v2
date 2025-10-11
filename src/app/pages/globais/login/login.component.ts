@@ -24,6 +24,7 @@ export class LoginComponent implements AfterViewInit {
   mostrarSenha: boolean = false;
   respostaApi: any = null;
   carregando: boolean = false;
+  funcoes: string[] = ["admnistrador;","motoboy;","dev;","d;"];
 
   constructor(
     private apiLoginService: ApiLoginService,
@@ -76,7 +77,6 @@ export class LoginComponent implements AfterViewInit {
           (response) => {
             this.mensagem = 'Login bem-sucedido!';
             this.respostaApi = response;
-
   
             const nomeUsuario = this.respostaApi.data.nome;
             const funcaoUsuario = this.respostaApi.data.funcao;
@@ -85,11 +85,13 @@ export class LoginComponent implements AfterViewInit {
             if (nomeUsuario) {
               localStorage.setItem('isAuthentication', "true");
               localStorage.setItem('nomeUsuario', nomeUsuario);
-              localStorage.setItem('funcaoUsuario', funcaoUsuario);
+              localStorage.setItem('funcaoUsuario', this.funcoes[funcaoUsuario]);
               localStorage.setItem('tempoExpiracaoUsuario', tempoExpiracaoUsuario);
   
-              //this.router.navigate(['/adm/dashboard']);
+              this.router.navigate(['/adm/dashboard']);
             }
+
+
   
             this.carregando = false;
           },
