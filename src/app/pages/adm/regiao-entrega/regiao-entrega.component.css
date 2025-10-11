@@ -14,6 +14,41 @@
   flex-wrap: wrap;
   flex-direction: column;
 }
+.btn-salvar {
+  background-color: var(--cor-4); 
+  color: #fff;
+  margin-top: 2%;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-salvar i {
+  font-size: 1.1rem;
+}
+
+
+/* Ativo / clique */
+.btn-salvar:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Diferenciar visualmente se estiver editando */
+.btn-salvar.editando {
+  background-color: #28a745; /* verde para atualizar */
+}
+
+.btn-salvar.editando:hover {
+  background-color: #1e7e34; /* verde mais escuro */
+}
 
 .itemMenuCard {
   height: 100px;
@@ -23,8 +58,10 @@
   cursor: pointer;
   padding: 1.2rem;
   background: #fff;
+  
   display: flex;
   flex-direction: column;
+    justify-content: space-around;
 }
 
 .itemMenuCard:hover {
@@ -56,13 +93,24 @@
 .acoes-card {
   display: flex;
   gap: 1rem;
-  justify-content: flex-end;
+  
+  align-items: flex-end;
+  flex-direction: column;
 }
 
 .acoes-card span {
   cursor: pointer;
   font-size: 1.2rem;
-  color: var(--cor-17);
+}
+
+.acoes-card span i {
+  transition: color 0.3s, transform 0.3s;
+}
+
+/* Hover para cada ícone com cor diferente */
+.acoes-card span.editar:hover i {
+  color: var(--cor-6); /* verde para editar */
+  transform: scale(1.2);
 }
 
 .btn-salvar {
@@ -74,6 +122,13 @@
     border: none;
     margin-top: 2%;
 }
+
+.acoes-card span.excluir:hover i {
+  color: var(--cor-7); /* vermelho para excluir */
+  transform: scale(1.2);
+}
+
+
 
 @media (max-width: 768px) {
   #itensMenuCotainer {

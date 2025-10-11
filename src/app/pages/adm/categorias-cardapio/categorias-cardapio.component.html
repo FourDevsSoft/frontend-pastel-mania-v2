@@ -1,3 +1,79 @@
-<app-sidebar></app-sidebar>
 <app-banner></app-banner>
-<p>categorias-cardapio works!</p>
+<app-sidebar></app-sidebar>
+<app-alert></app-alert>
+
+<div class="formulario-lista-container">
+
+  <!-- Formulário -->
+  <div class="card-form" *ngIf="formularioVisivel">
+    <div class="voltar-container">
+      <span class="seta-voltar" (click)="limparFormulario()">
+        <i class="bi bi-arrow-left-short"></i> Voltar
+      </span>
+    </div>
+
+    <h3>{{ editando ? 'Atualizar' : 'Cadastrar' }} Categoria</h3>
+
+    <span class="campo-obrigatorio">*</span>
+    <input type="text" placeholder="Nome da Categoria" [(ngModel)]="nome" />
+
+    <span class="campo-obrigatorio">*</span>
+    <textarea placeholder="Descrição da Categoria" [(ngModel)]="descricao"></textarea>
+
+    <button class="btn-salvar" (click)="salvar()" [class.editando]="editando">
+      {{ editando ? 'Atualizar' : 'Salvar' }} <i class="bi bi-check"></i>
+    </button>
+
+    <p class="mensagem-erro">{{ erro }}</p>
+  </div>
+
+  <!-- Lista -->
+  <div *ngIf="!formularioVisivel">
+    <div class="top-bar-lista">
+      <input
+        type="text"
+        placeholder="🔍︎ Buscar categoria ..."
+        class="input-busca"
+        [(ngModel)]="termoBusca"
+      />
+      <button class="btn-editar" (click)="toggleEditar()">
+        {{ editMode ? 'Desativar Editar' : 'Editar' }}
+      </button>
+      <button class="btn-novo btn-padrao" (click)="mostrarFormularioParaCriar()">
+        Nova Categoria <i class="bi bi-plus"></i>
+      </button>
+    </div>
+
+    <div id="itensMenuCotainer" cdkDropList (cdkDropListDropped)="drop($event)">
+      <div
+        class="itemMenuCard"
+        *ngFor="let cat of categoriasFiltradas"
+        cdkDrag
+        [cdkDragDisabled]="!editMode"
+      >
+        <div class="info">
+          <div>
+            <strong>{{ cat.nome }}</strong>
+            <p>{{ cat.descricao }}</p>
+          </div>
+
+          <div class="acoes-card">
+            <span class="editar" title="Editar" (click)="preencherFormularioParaEdicao(cat)">
+              <i class="bi bi-pencil-square"></i>
+            </span>
+            <span class="excluir" title="Excluir" (click)="toogleDeletar(cat.id!)">
+              <i class="bi bi-trash-fill"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-confirm-pop-up
+    [message]="'Tem certeza que deseja excluir esta categoria?'"
+    [visible]="confirmPopupVisible"
+    (confirm)="idParaExcluir !== null ? deletarCategoria(idParaExcluir) : null"
+    (cancel)="confirmPopupVisible = false"
+  />
+</div>

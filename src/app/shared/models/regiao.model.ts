@@ -2,7 +2,7 @@ export interface RegiaoEntrega {
   id_regiao?: number;
   nome: string;
   preco: number;
-  ativo: boolean;
+  ativo?: boolean; 
 }
 
 export interface RegioesResponse {

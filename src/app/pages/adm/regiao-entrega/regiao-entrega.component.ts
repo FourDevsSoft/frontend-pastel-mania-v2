@@ -33,7 +33,6 @@ export class RegiaoEntregaComponent implements OnInit {
   termoBusca = '';
   nome = '';
   preco: number | null = null;
-  ativo = true;
 
   confirmPopupVisible = false;
   idParaExcluir: number | null = null;
@@ -66,7 +65,6 @@ export class RegiaoEntregaComponent implements OnInit {
 
     this.nome = reg.nome;
     this.preco = reg.preco;
-    this.ativo = reg.ativo;
   }
 
   salvar(): void {
@@ -79,9 +77,9 @@ export class RegiaoEntregaComponent implements OnInit {
 
     const regiao: RegiaoEntrega = {
       nome: this.nome.trim(),
-      preco: this.preco,
-      ativo: this.ativo
+      preco: this.preco
     };
+    
 
     if (this.editando && this.idEditando !== null) {
       this.regiaoService.update(this.idEditando, regiao).subscribe({
@@ -130,7 +128,6 @@ export class RegiaoEntregaComponent implements OnInit {
   limparFormulario(): void {
     this.nome = '';
     this.preco = null;
-    this.ativo = true;
     this.editando = false;
     this.idEditando = null;
     this.formularioVisivel = false;
