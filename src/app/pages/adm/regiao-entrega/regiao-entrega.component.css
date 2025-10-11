@@ -53,10 +53,10 @@
 .itemMenuCard {
   height: 100px;
   border-radius: 10px;
-  box-shadow: 5px 5px 46px -20px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 29px -3px rgba(145, 145, 145, 0.295);
   transition: 0.3s ease-in-out;
   cursor: pointer;
-  padding: 1rem;
+  padding: 1.2rem;
   background: #fff;
   
   display: flex;
@@ -111,6 +111,16 @@
 .acoes-card span.editar:hover i {
   color: var(--cor-6); /* verde para editar */
   transform: scale(1.2);
+}
+
+.btn-salvar {
+    background-color: var(--cor-4);
+    color: var(--cor-1);
+    cursor: pointer;
+    padding: 1.5vh;
+    display: inline;
+    border: none;
+    margin-top: 2%;
 }
 
 .acoes-card span.excluir:hover i {

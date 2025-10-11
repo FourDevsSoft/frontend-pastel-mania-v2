@@ -16,47 +16,48 @@ export class BannerComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    const rawPath = this.router.url.replace('/', '');
+    // Obtém a URL completa sem parâmetros
+    const rawPath = this.router.url.split('?')[0].replace(/^\/+/, '');
 
+    // Mapeia nomes amigáveis para as rotas declaradas
     const nomesAmigaveis: { [key: string]: string } = {
-      dashboard: 'Dashboard',
-     /* usuario: 'Usuário',*/
-      cardapio: 'Cardápio',
-      portoes: 'Portões',
-      alunos: 'Alunos',
-      responsaveis: 'Responsáveis',
-      salas: 'Salas',
-      turmas: 'Turmas',
-      transfturmas: 'Transf.Turmas',
-      historico: 'Histórico',
-      auxiliar: 'Auxiliar',
-      professor: 'Professor',
-      coordenacao: 'Coordenação',
-      'regiao-entrega': 'regiao-entrega',
+      'adm/dashboard': 'Dashboard',
+      'adm/usuarios': 'Usuários',
+      'adm/cardapio': 'Cardápio',
+      'adm/categorias-cardapio': 'Categorias de Cardápio',
+      'adm/analise': 'Análises',
+      'adm/pedidos': 'Pedidos',
+      'adm/funcionamento': 'Funcionamento',
+      'adm/regioes-entrega': 'Regiões de Entrega',
+      'adm/mensagens': 'Mensagens',
+      'adm/motoboy': 'Motoboys',
 
     };
 
+    // Ícones correspondentes a cada rota
     const icones: { [key: string]: string } = {
-      dashboard: 'bi bi-grid-fill',
-      /*usuario: 'bi bi-person-fill',*/
-      cardapio:  'bi bi-list-task',
-      portoes: 'bi bi-door-open-fill',
-      alunos: 'bi bi-people',
-      responsaveis: 'bi bi-mortarboard-fill',
-      salas: 'bi bi-pencil-square',
-      turmas: 'bi bi-mortarboard-fill',
-      transfturmas: 'bi bi-arrow-left-right',
-      historico: 'bi-clock-history',
-      auxiliar: 'bi-person-badge-fill',
-      professor: 'bi-journal-text',
-      coordenacao: 'bi-briefcase-fill',
-      'regiao-entrega': 'bi bi-geo-fill',
+      'adm/dashboard': 'bi bi-grid-fill',
+      'adm/usuarios': 'bi bi-person-fill',
+      'adm/cardapio': 'bi bi-journal-text',
+      'adm/categorias-cardapio': 'bi bi-list-check',
+      'adm/analise': 'bi bi-graph-up',
+      'adm/pedidos': 'bi bi-bag-check-fill',
+      'adm/funcionamento': 'bi bi-clock-fill',
+      'adm/regioes-entrega': 'bi bi-geo-alt-fill',
+      'adm/mensagens': 'bi bi-chat-dots-fill',
+      'adm/motoboy': 'bi bi-bicycle',
+
     };
+
+    // Se a rota tiver parâmetros (ex: erro/404), pega só a base
+    const basePath = rawPath.split('/').slice(0, 2).join('/');
 
     this.nomeDaPagina =
       nomesAmigaveis[rawPath] ||
+      nomesAmigaveis[basePath] ||
       rawPath.charAt(0).toUpperCase() + rawPath.slice(1);
 
-    this.iconeDaPagina = icones[rawPath] || 'bi-info-circle-fill';
+    this.iconeDaPagina =
+      icones[rawPath] || icones[basePath] || 'bi bi-info-circle-fill';
   }
 }

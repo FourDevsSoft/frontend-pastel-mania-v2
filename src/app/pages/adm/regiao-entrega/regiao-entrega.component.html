@@ -19,6 +19,7 @@
 
     <span class="campo-obrigatorio">*</span>
     <input type="number" placeholder="Preço" [(ngModel)]="preco" max="100" min="0"/>
+    <input type="number" placeholder="Preço" [(ngModel)]="preco" />
 
     <button class="btn-salvar" (click)="salvar()">
       {{ editando ? 'Atualizar' : 'Salvar' }} <i class="bi bi-check"></i>
@@ -42,7 +43,7 @@
     </div>
 
     <div id="itensMenuCotainer">
-      <div class="itemMenuCard" *ngFor="let reg of regioesFiltradas">
+      <div class="itemMenuCard" *ngFor="let reg of regioesFiltradas" (click)="reg.id_regiao !== undefined ? preencherFormularioParaEdicao(reg) : null">
         <div class="info">
           <div>
             <strong>{{ reg.nome }}</strong>
