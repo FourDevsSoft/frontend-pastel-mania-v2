@@ -18,11 +18,7 @@
     <input type="text" placeholder="Nome da Região" [(ngModel)]="nome" />
 
     <span class="campo-obrigatorio">*</span>
-    <input type="number" placeholder="Preço" [(ngModel)]="preco" />
-
-    <label>
-      <input type="checkbox" [(ngModel)]="ativo" /> Ativo
-    </label>
+    <input type="number" placeholder="Preço" [(ngModel)]="preco" max="100" min="0"/>
 
     <button class="btn-salvar" (click)="salvar()">
       {{ editando ? 'Atualizar' : 'Salvar' }} <i class="bi bi-check"></i>
@@ -51,17 +47,17 @@
           <div>
             <strong>{{ reg.nome }}</strong>
             <span>R$ {{ reg.preco }}</span>
-            <p>Ativo: {{ reg.ativo ? 'Sim' : 'Não' }}</p>
           </div>
 
           <div class="acoes-card">
-            <span title="Editar" (click)="reg.id_regiao !== undefined ? preencherFormularioParaEdicao(reg) : null">
+            <span class="editar" title="Editar" (click)="reg.id_regiao !== undefined ? preencherFormularioParaEdicao(reg) : null">
               <i class="bi bi-pencil-square"></i>
             </span>
-            <span title="Excluir" (click)="reg.id_regiao !== undefined ? toogleDeletar(reg.id_regiao) : null">
+            <span class="excluir" title="Excluir" (click)="reg.id_regiao !== undefined ? toogleDeletar(reg.id_regiao) : null">
               <i class="bi bi-trash-fill"></i>
             </span>
           </div>
+          
         </div>
       </div>
     </div>
