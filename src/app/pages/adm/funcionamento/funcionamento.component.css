@@ -1,0 +1,152 @@
+
+#horarios {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 4%;
+    margin-top: 2%;
+    gap: 2rem;
+    position: relative;
+  }
+  
+  .horario {
+    width: 20vw;
+    border-radius: 10px;
+    background-color: var(--cor-1);
+    margin-bottom: 3%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.04),
+                0px 4px 6px rgba(0, 0, 0, 0.05),
+                0px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .horario:hover {
+    transform: scale(1.03);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05),
+                0px 6px 10px rgba(0, 0, 0, 0.08),
+                0px 3px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  .dia {
+    background-color: var(--cor-4);
+    color: var(--cor-1);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 6% 10%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+  }
+  .horas {
+    display: flex;
+    justify-content: space-between;
+    padding: 5%;
+    width: 85%;
+    margin: 0 auto 10%;
+  }
+  
+  .horas .input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .horas input {
+    border: 1px solid var(--cor-19);
+    padding: 0.6rem;
+    margin-left: 0.5rem;
+    outline: none;
+    border-radius: 5px;
+    background-color: var(--cor-1);
+    color: var(--cor-19);
+    font-weight: 500;
+    transition: border-color 0.2s ease;
+  }
+  
+  .horas input:focus {
+    border: 1px solid var(--cor-19);
+  }
+  
+  #salvar-horarios {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-top: 4%;
+    padding: 0 5%;
+  }
+  
+  #btn-salvar {
+    background-color: var(--cor-4);
+    color: var(--cor-1);
+    border: none;
+    padding: 0.8rem 2.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  #btn-salvar:hover {
+    background-color: var(--cor-4);
+    transform: translateY(-2px);
+  }
+  
+  .text {
+    font-size: 0.8rem;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .horario {
+      width: 40%;
+    }
+  }
+  
+  @media screen and (max-width: 800px) {
+    .horario {
+      width: 100%;
+      margin-bottom: 8%;
+    }
+  
+    #salvar-horarios {
+      justify-content: center;
+    }
+  
+    #btn-salvar {
+      width: 80%;
+    }
+  }
+  
+  @media screen and (max-width: 350px) {
+    .horas {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  
+    .horas div {
+      width: 100%;
+    }
+  
+    .horas input {
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 800px) {
+    .titulo {
+      border-bottom: 2px solid var(--cor-4);
+    }
+  
+    .titulo-capa {
+      padding-bottom: 5vw;
+    }
+  
+    .capaAdm {
+      background-size: cover;
+      background-position-y: -20vh;
+      background-position-x: center;
+    }
+  }

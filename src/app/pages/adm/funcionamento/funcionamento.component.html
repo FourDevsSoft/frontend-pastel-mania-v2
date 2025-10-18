@@ -1,3 +1,29 @@
 <app-sidebar></app-sidebar>
 <app-banner></app-banner>
-<p>funcionamento works!</p>
+<app-alert></app-alert>
+
+<section id="horarios">
+  <div class="horario" *ngFor="let dia of diasSemana">
+    <div class="dia">
+      <i class="bi bi-calendar-event"></i>
+      <label class="nome-dia">{{ dia.nome }}</label>
+    </div>
+    <div class="horas">
+      <div>
+        <label>Início:</label>
+        <input type="time" [(ngModel)]="dia.inicio">
+      </div>
+      <div>
+        <label>Fim:</label>
+        <input type="time" [(ngModel)]="dia.fim">
+      </div>
+    </div>
+  </div>
+
+  <div id="salvar-horarios">
+    <button id="btn-salvar" (click)="salvarHorarios()">
+      Salvar <i class="bi bi-patch-check-fill"></i>
+    </button>
+  </div>
+</section>
+
