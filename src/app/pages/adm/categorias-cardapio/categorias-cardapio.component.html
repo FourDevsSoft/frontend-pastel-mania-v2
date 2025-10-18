@@ -36,12 +36,14 @@
         class="input-busca"
         [(ngModel)]="termoBusca"
       />
-      <button class="btn-editar" (click)="toggleEditar()">
-        {{ editMode ? 'Desativar Editar' : 'Editar' }}
-      </button>
-      <button class="btn-novo btn-padrao" (click)="mostrarFormularioParaCriar()">
-        Nova Categoria <i class="bi bi-plus"></i>
-      </button>
+      <div class="botoes-container">
+        <button class="btn-editar" (click)="toggleEditar()">
+          {{ editMode ? 'Desativar Editar' : 'Editar' }}
+        </button>
+        <button class="btn-novo btn-padrao" (click)="mostrarFormularioParaCriar()">
+          Nova Categoria <i class="bi bi-plus"></i>
+        </button>
+      </div>
     </div>
 
     <div id="itensMenuCotainer" cdkDropList (cdkDropListDropped)="drop($event)">
