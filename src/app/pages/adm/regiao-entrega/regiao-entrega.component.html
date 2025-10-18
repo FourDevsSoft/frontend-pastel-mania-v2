@@ -19,7 +19,6 @@
 
     <span class="campo-obrigatorio">*</span>
     <input type="number" placeholder="Preço" [(ngModel)]="preco" max="100" min="0"/>
-    <input type="number" placeholder="Preço" [(ngModel)]="preco" />
 
     <button class="btn-salvar" (click)="salvar()">
       {{ editando ? 'Atualizar' : 'Salvar' }} <i class="bi bi-check"></i>
@@ -43,26 +42,27 @@
     </div>
 
     <div id="itensMenuCotainer">
-      <div class="itemMenuCard" *ngFor="let reg of regioesFiltradas" (click)="reg.id_regiao !== undefined ? preencherFormularioParaEdicao(reg) : null">
+      <div class="itemMenuCard" *ngFor="let reg of regioesFiltradas">
         <div class="info">
-          <div>
-            <strong>{{ reg.nome }}</strong>
-            <span>R$ {{ reg.preco }}</span>
-          </div>
-
+          <strong>{{ reg.nome }}</strong>
+          <span class="valor">R$ {{ reg.preco }}</span>
+      
           <div class="acoes-card">
-            <span class="editar" title="Editar" (click)="reg.id_regiao !== undefined ? preencherFormularioParaEdicao(reg) : null">
+            <span class="editar" 
+                  title="Editar" 
+                  (click)="reg.id_regiao !== undefined ? preencherFormularioParaEdicao(reg) : null; $event.stopPropagation()">
               <i class="bi bi-pencil-square"></i>
             </span>
-            <span class="excluir" title="Excluir" (click)="reg.id_regiao !== undefined ? toogleDeletar(reg.id_regiao) : null">
+            <span class="excluir" 
+                  title="Excluir" 
+                  (click)="reg.id_regiao !== undefined ? toogleDeletar(reg.id_regiao) : null; $event.stopPropagation()">
               <i class="bi bi-trash-fill"></i>
             </span>
           </div>
-          
         </div>
       </div>
+      </div>
     </div>
-  </div>
 
   <app-confirm-pop-up
     [message]="'Tem certeza que deseja excluir esta região de entrega?'"

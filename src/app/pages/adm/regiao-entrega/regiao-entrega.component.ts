@@ -68,8 +68,8 @@ export class RegiaoEntregaComponent implements OnInit {
   }
 
   salvar(): void {
-    if (!this.nome || this.nome.trim() === '' || this.preco === null || isNaN(this.preco)) {
-      this.erro = 'Preencha todos os campos obrigatórios';
+    if (!this.nome || this.nome.trim() === '' || this.preco === null || isNaN(this.preco) || this.preco < 0) {
+      this.erro = 'Preencha todos os campos corretamente';
       return;
     }
 
@@ -79,7 +79,6 @@ export class RegiaoEntregaComponent implements OnInit {
       nome: this.nome.trim(),
       preco: this.preco
     };
-    
 
     if (this.editando && this.idEditando !== null) {
       this.regiaoService.update(this.idEditando, regiao).subscribe({
@@ -88,7 +87,10 @@ export class RegiaoEntregaComponent implements OnInit {
           this.carregarRegioes();
           this.limparFormulario();
         },
-        error: () => this.alertService.exibir('error', 'Erro ao atualizar região.')
+        error: (err) => {
+          const mensagem = err?.errorMessages?.join(', ') || 'Erro ao atualizar região.';
+          this.alertService.exibir('error', mensagem);
+        }
       });
     } else {
       this.regiaoService.create(regiao).subscribe({
@@ -97,7 +99,10 @@ export class RegiaoEntregaComponent implements OnInit {
           this.carregarRegioes();
           this.limparFormulario();
         },
-        error: () => this.alertService.exibir('error', 'Erro ao criar região.')
+        error: (err) => {
+          const mensagem = err?.errorMessages?.join(', ') || 'Erro ao criar região.';
+          this.alertService.exibir('error', mensagem);
+        }
       });
     }
   }
@@ -105,8 +110,15 @@ export class RegiaoEntregaComponent implements OnInit {
   carregarRegioes(): void {
     this.regiaoService.getAll(this.termoBusca).subscribe({
       next: data => (this.regioes = data),
-      error: () => this.alertService.exibir('error', 'Erro ao carregar regiões.')
+      error: (err) => {
+        const mensagem = err?.errorMessages?.join(', ') || 'Erro ao carregar regiões.';
+        this.alertService.exibir('error', mensagem);
+      }
     });
+  }
+
+  onTermoBuscaChange(): void {
+    this.carregarRegioes();
   }
 
   toogleDeletar(id: number): void {
@@ -121,7 +133,10 @@ export class RegiaoEntregaComponent implements OnInit {
         this.carregarRegioes();
         this.confirmPopupVisible = false;
       },
-      error: () => this.alertService.exibir('error', 'Erro ao excluir região.')
+      error: (err) => {
+        const mensagem = err?.errorMessages?.join(', ') || 'Erro ao excluir região.';
+        this.alertService.exibir('error', mensagem);
+      }
     });
   }
 
