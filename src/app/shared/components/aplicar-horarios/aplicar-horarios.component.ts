@@ -22,6 +22,7 @@ export class AplicarHorariosComponent {
 
   aplicarHorariosPadrao(): void {
     const selecionados = this.diasSemana.filter(d => d.selecionado);
+
     if (selecionados.length === 0) {
       this.alertService.exibir('error', 'Selecione ao menos um dia!');
       return;
@@ -35,12 +36,20 @@ export class AplicarHorariosComponent {
     this.alertService.exibir('success', 'Horários aplicados com sucesso!');
   }
 
-  selecionarTodos(): void {
-    this.diasSemana.forEach(d => d.selecionado = true);
+  toggleTodos(): void {
+    const todosSelecionados = this.diasSemana.every(d => d.selecionado);
+    this.diasSemana.forEach(d => d.selecionado = !todosSelecionados);
+
+    if (todosSelecionados) {
+      this.alertService.exibir('info', 'Todos os dias foram desmarcados.');
+    } else {
+      this.alertService.exibir('info', 'Todos os dias foram selecionados.');
+    }
   }
 
   limparSelecao(): void {
     this.diasSemana.forEach(d => d.selecionado = false);
+    this.alertService.exibir('info', 'Seleção de dias limpa.');
   }
 
   fecharModal(): void {

@@ -1,4 +1,4 @@
-/* SEÇÃO PRINCIPAL */
+/*SEÇÃO PRINCIPAL*/
 #funcionamento {
   padding: 30px;
   display: flex;
@@ -6,7 +6,7 @@
   gap: 3rem;
 }
 
-/* TOPO - BOTOES AÇÕES */
+/*BOTOES AÇÕES*/
 .acoes-topo {
   display: flex;
   justify-content: flex-start;
@@ -30,6 +30,7 @@
   cursor: pointer;
 }
 
+
 /* Botão Salvar */
 #salvar-horarios #btn-salvar {
   background-color: var(--cor-4);
@@ -41,37 +42,38 @@
   font-weight: 500;
 }
 
-/* CARDS DE HORÁRIOS */
+
+/*CARDS DE HORÁRIOS*/
 #horarios {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  row-gap: 3rem;       /* espaço vertical entre linhas */
-  column-gap: 5rem;    /* espaço horizontal entre colunas */
+  row-gap: 3rem;
+  column-gap: 5rem;
   margin: 4%;
   position: relative;
   margin-top: 4%;
 }
 
 .horario {
-  flex: 0 1 30%;                  /* cada card ocupa ~30% do container */
+  flex: 0 1 30%;
   max-width: 380px;
   border-radius: 10px;
   background-color: var(--cor-1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.04),
-              0px 4px 6px rgba(0, 0, 0, 0.05),
-              0px 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04),
+    0px 4px 6px rgba(0, 0, 0, 0.05),
+    0px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .horario:hover {
   transform: scale(1.03);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05),
-              0px 6px 10px rgba(0, 0, 0, 0.08),
-              0px 3px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05),
+    0px 6px 10px rgba(0, 0, 0, 0.08),
+    0px 3px 6px rgba(0, 0, 0, 0.12);
 }
 
-/* CABEÇALHO DO CARD */
+/*CABEÇALHO DO CARD*/
 .dia {
   background-color: var(--cor-4);
   color: var(--cor-1);
@@ -84,34 +86,65 @@
   font-weight: 500;
 }
 
-/* HORÁRIOS DO CARD */
+/* Ícone do cabeçalho */
+.dia i {
+  font-size: 1.2rem;
+  color: var(--cor-1);
+}
+
+/*HORÁRIOS DO CARD*/
 .horas {
   display: flex;
-  justify-content: space-between;
-  padding: 5%;
-  width: 85%;
-  margin: 0 auto 10%;
+  gap: 2rem;
+  padding: 1rem;
+  flex-wrap: wrap;
 }
 
-.horas input {
-  border: 1px solid var(--cor-19);
-  padding: 0.6rem;
-  border-radius: 5px;
-  background-color: var(--cor-1);
-  color: var(--cor-19);
+.input-com-icone {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+.horas label {
   font-weight: 500;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+/* Linha ícone + input */
+.linha {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.linha i {
+  font-size: 1rem;
+  color: #333;
+}
+/* Ícone do lado de fora do input */
+
+.linha input {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.95rem;
   outline: none;
-  transition: border-color 0.2s ease;
+  background: #fff;
 }
 
-.horas input:focus {
-  border: 1px solid var(--cor-4);
+
+.linha input:focus {
+  border: none;
+  outline: none;
 }
 
-/* RESPONSIVIDADE */
+/*RESPONSIVIDADE*/
 @media screen and (max-width: 1024px) {
   #horarios {
-    flex-wrap: wrap;   /* flex já usa wrap, mas mantém */
+    flex-wrap: wrap;
   }
 }
 
@@ -128,13 +161,12 @@
 
 @media screen and (max-width: 350px) {
   .horas {
-    flex-direction: column;
     gap: 0.5rem;
   }
-  .horas div {
+  .input-com-icone {
     width: 100%;
   }
-  .horas input {
+  .linha input {
     width: 100%;
   }
 }
