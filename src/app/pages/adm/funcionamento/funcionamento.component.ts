@@ -5,35 +5,53 @@ import { SideBarComponent } from '../../../shared/components/adm/side-bar/side-b
 import { BannerComponent } from '../../../shared/components/adm/banner/banner.component';
 import { AlertComponent } from '../../../shared/components/globais/alert/alert.component';
 import { AlertService } from '../../../core/services/alertService/alert.service';
-import { FuncionamentoService } from '../../../core/services/funcionamento/funcionamento.service';
+import { FuncionamentoService } from '../../../core/services/funcionamento/Funcionamento.Service';
 import { HorarioFuncionamento } from '../../../shared/models/funcionamento.model';
+import { AplicarHorariosComponent } from '../../../shared/components/aplicar-horarios/aplicar-horarios.component';
 
 @Component({
   selector: 'app-funcionamento',
   standalone: true,
-  imports: [CommonModule, FormsModule, SideBarComponent, BannerComponent, AlertComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    AplicarHorariosComponent,
+    SideBarComponent,
+    BannerComponent,
+    AlertComponent
+  ],
   templateUrl: './funcionamento.component.html',
   styleUrls: ['./funcionamento.component.css']
 })
 export class FuncionamentoComponent implements OnInit {
 
   diasSemana = [
-    { nome: 'Segunda', id: 2, inicio: '', fim: '', ativo: true },
-    { nome: 'Terça', id: 3, inicio: '', fim: '', ativo: true },
-    { nome: 'Quarta', id: 4, inicio: '', fim: '', ativo: true },
-    { nome: 'Quinta', id: 5, inicio: '', fim: '', ativo: true },
-    { nome: 'Sexta', id: 6, inicio: '', fim: '', ativo: true },
-    { nome: 'Sábado', id: 7, inicio: '', fim: '', ativo: true },
-    { nome: 'Domingo', id: 1, inicio: '', fim: '', ativo: true },
+    { nome: 'Segunda', id: 2, inicio: '', fim: '', ativo: true, selecionado: false },
+    { nome: 'Terça', id: 3, inicio: '', fim: '', ativo: true, selecionado: false },
+    { nome: 'Quarta', id: 4, inicio: '', fim: '', ativo: true, selecionado: false },
+    { nome: 'Quinta', id: 5, inicio: '', fim: '', ativo: true, selecionado: false },
+    { nome: 'Sexta', id: 6, inicio: '', fim: '', ativo: true, selecionado: false },
+    { nome: 'Sábado', id: 7, inicio: '', fim: '', ativo: true, selecionado: false },
+    { nome: 'Domingo', id: 1, inicio: '', fim: '', ativo: true, selecionado: false },
   ];
+
+  modalAberto = false;
 
   constructor(
     private alertService: AlertService,
-    private funcionamentoService: FuncionamentoService // ✅ com f minúsculo
+    private funcionamentoService: FuncionamentoService
   ) {}
 
   ngOnInit(): void {
     this.carregarHorarios();
+  }
+
+  abrirAplicarHorarios() {
+    this.modalAberto = true;
+  }
+
+  fecharAplicarHorarios() {
+    this.modalAberto = false;
   }
 
   carregarHorarios(): void {
@@ -65,5 +83,3 @@ export class FuncionamentoComponent implements OnInit {
     });
   }
 }
-
-
