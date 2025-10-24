@@ -2,7 +2,29 @@
 <app-banner></app-banner>
 <app-alert></app-alert>
 
-<section id="horarios">
+<!--  Área de ações -->
+<div class="acoes-topo">
+  <div class="abrir-modal">
+    <button class="btn-abrir" (click)="abrirAplicarHorarios()">
+      <i class="bi bi-clock-history"></i> Aplicar horários em massa
+    </button>
+  </div>
+  <div id="salvar-horarios">
+    <button id="btn-salvar" (click)="salvarHorarios()">
+      Salvar <i class="bi bi-patch-check-fill"></i>
+    </button>
+  </div>
+</div>
+
+<!--  Modal -->
+<app-aplicar-horarios
+  [diasSemana]="diasSemana"
+  [visivel]="modalAberto"
+  (fechar)="fecharAplicarHorarios()">
+</app-aplicar-horarios>
+
+<!--  Cards dos dias -->
+<div id="horarios">
   <div class="horario" *ngFor="let dia of diasSemana">
     <div class="dia">
       <i class="bi bi-calendar-event"></i>
@@ -19,11 +41,4 @@
       </div>
     </div>
   </div>
-
-  <div id="salvar-horarios">
-    <button id="btn-salvar" (click)="salvarHorarios()">
-      Salvar <i class="bi bi-patch-check-fill"></i>
-    </button>
-  </div>
-</section>
-
+</div>
