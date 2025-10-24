@@ -2,13 +2,14 @@
 <app-banner></app-banner>
 <app-alert></app-alert>
 
-<!--  Área de ações -->
+<!-- Área de ações -->
 <div class="acoes-topo">
   <div class="abrir-modal">
     <button class="btn-abrir" (click)="abrirAplicarHorarios()">
       <i class="bi bi-clock-history"></i> Aplicar horários em massa
     </button>
   </div>
+
   <div id="salvar-horarios">
     <button id="btn-salvar" (click)="salvarHorarios()">
       Salvar <i class="bi bi-patch-check-fill"></i>
@@ -16,28 +17,38 @@
   </div>
 </div>
 
-<!--  Modal -->
+<!-- Modal -->
 <app-aplicar-horarios
   [diasSemana]="diasSemana"
   [visivel]="modalAberto"
-  (fechar)="fecharAplicarHorarios()">
-</app-aplicar-horarios>
+  (fechar)="fecharAplicarHorarios()"
+></app-aplicar-horarios>
 
-<!--  Cards dos dias -->
+<!-- Cards dos dias -->
 <div id="horarios">
   <div class="horario" *ngFor="let dia of diasSemana">
     <div class="dia">
-      <i class="bi bi-calendar-event"></i>
-      <label class="nome-dia">{{ dia.nome }}</label>
+      <i class="bi bi-calendar2-week-fill"></i>
+      <span class="nome-dia">{{ dia.nome }}</span>
     </div>
+
     <div class="horas">
-      <div>
-        <label>Início:</label>
-        <input type="time" [(ngModel)]="dia.inicio">
+      <!-- Início -->
+      <div class="input-com-icone">
+        <label>Início</label>
+        <div class="linha">
+          <i class="bi bi-calendar2-week-fill"></i>
+          <input type="time" [(ngModel)]="dia.inicio" />
+        </div>
       </div>
-      <div>
-        <label>Fim:</label>
-        <input type="time" [(ngModel)]="dia.fim">
+
+      <!-- Fim -->
+      <div class="input-com-icone">
+        <label>Fim</label>
+        <div class="linha">
+          <i class="bi bi-calendar2-week-fill"></i>
+          <input type="time" [(ngModel)]="dia.fim" />
+        </div>
       </div>
     </div>
   </div>

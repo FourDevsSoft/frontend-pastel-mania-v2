@@ -1,42 +1,45 @@
-<!-- Modal Overlay -->
 <div class="modal-overlay" *ngIf="visivel">
-    <div class="modal-content">
-      <!-- Cabeçalho -->
-      <div class="modal-header">
-        <h2><i class="bi bi-clock-history"></i> Aplicar horários em massa</h2>
-        <button (click)="fecharModal()"><i class="bi bi-x-lg"></i></button>
+  <div class="modal-container">
+    <h3>Aplicar horários padrão</h3>
+
+    <div class="horarios">
+      <div>
+        <label>Horário de Início</label>
+        <input type="time" [(ngModel)]="horarioPadraoInicio">
       </div>
-  
-      <!-- Inputs de horário -->
-      <div class="inputs-aplicar">
-        <div>
-          <label>Início:</label>
-          <input type="time" [(ngModel)]="horarioPadraoInicio">
-        </div>
-        <div>
-          <label>Fim:</label>
-          <input type="time" [(ngModel)]="horarioPadraoFim">
-        </div>
-        <button (click)="aplicarHorariosPadrao()">Aplicar</button>
-      </div>
-  
-      <!-- Seleção de dias -->
-      <div class="acoes-dias">
-        <div class="botoes">
-          <button (click)="selecionarTodos()">Selecionar todos</button>
-          <button (click)="limparSelecao()">Limpar seleção</button>
-        </div>
-        <div class="dias-check">
-          <label *ngFor="let dia of diasSemana">
-            <input type="checkbox" [(ngModel)]="dia.selecionado"> {{ dia.nome }}
-          </label>
-        </div>
-      </div>
-  
-      <!-- Rodapé -->
-      <div class="modal-footer">
-        <button (click)="fecharModal()">Fechar</button>
+      <div>
+        <label>Horário de Fim</label>
+        <input type="time" [(ngModel)]="horarioPadraoFim">
       </div>
     </div>
+
+    <hr>
+
+    <div class="selecao-header">
+      <span>Selecione os dias:</span>
+      <div class="botoes-acoes">
+        <button class="btn-acao" (click)="toggleTodos()">
+          <i class="bi bi-check2-square"></i> Todos
+        </button>
+        <button class="btn-acao" (click)="limparSelecao()">
+          <i class="bi bi-x-square"></i> Limpar
+        </button>
+      </div>
+    </div>
+
+    <div class="dias-grid">
+      <button 
+        *ngFor="let dia of diasSemana"
+        (click)="dia.selecionado = !dia.selecionado"
+        [class.selecionado]="dia.selecionado">
+        <i class="bi" [ngClass]="dia.selecionado ? 'bi-check-circle-fill' : 'bi-circle'"></i>
+        {{ dia.nome }}
+      </button>
+    </div>
+
+    <div class="acoes-finais">
+      <button class="btn-aplicar" (click)="aplicarHorariosPadrao()">Aplicar</button>
+      <button class="btn-cancelar" (click)="fecharModal()">Cancelar</button>
+    </div>
   </div>
-  
+</div>
