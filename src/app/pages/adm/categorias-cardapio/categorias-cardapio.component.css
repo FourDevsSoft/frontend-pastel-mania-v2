@@ -1,3 +1,4 @@
+/*CONTAINERS*/
 #itensMenuCotainer {
   display: grid;
   gap: 1.5rem;
@@ -66,10 +67,10 @@ button:hover {
   transform: translateY(-1px);
 }
 
+/*FORMULARIO */
 .card-form h3 {
   margin-bottom: 1rem;
   font-size: 1.3rem;
- 
 }
 
 .card-form input,
@@ -113,61 +114,38 @@ button:hover {
   margin-top: 0.5rem;
 }
 
-/* ====== CARDS ====== */
+/* ================== CARDS ================== */
+/* card normal */
 .itemMenuCard {
-  height: 120px;
+  min-height: 80px; /* altura mínima */
   border-radius: 10px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
-
   transition: transform 0.25s ease, box-shadow 0.25s ease;
-  cursor: grab;
   padding: 1rem;
   background: #fff;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
+  align-items: center; /* centraliza verticalmente */
 }
 
-/* card enquanto arrastando */
-.itemMenuCard.cdk-drag-preview {
-  border-radius: 10px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-
-  transform: rotate(2deg) scale(1.05);
-  opacity: 0.9;
-  background: #fff;
+/* info dentro do card */
+.itemMenuCard .info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* centraliza verticalmente */
+  width: 100%;
 }
 
-/* placeholder (espaço que fica embaixo) → vamos esconder */
-.itemMenuCard.cdk-drag-placeholder {
-  opacity: 0 !important;
-  height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
+.itemMenuCard .info > div:first-child {
+  flex: 1; /* faz o texto ocupar o espaço restante */
 }
 
-/* arraste ativo */
-.cdk-drag-animating {
-  transition: transform 0.25s ease;
-}
-
-.itemMenuCard .info strong {
-  font-size: 1.2rem;
-}
-
-.itemMenuCard .info p {
-  font-size: 0.95rem;
-  margin-top: 0.3rem;
-  color: #555;
-}
-
-/* Ações dos cards */
+/* ações dos cards */
 .acoes-card {
   display: flex;
-  gap: 1rem;
-  align-items: end;
-  justify-content: flex-end;
+  gap: 0.5rem;
+  align-items: center; /* centraliza verticalmente */
+  justify-content: center;
 }
 
 .acoes-card span {
@@ -181,15 +159,13 @@ button:hover {
 
 .acoes-card span.editar:hover i {
   color: #0080ff;
-  transform: scale(1.2);
 }
 
 .acoes-card span.excluir:hover i {
   color: var(--cor-7);
-  transform: scale(1.2);
 }
 
-/* ====== RESPONSIVIDADE ====== */
+/* ================== RESPONSIVIDADE ================== */
 @media (max-width: 768px) {
   #itensMenuCotainer {
     justify-content: center;

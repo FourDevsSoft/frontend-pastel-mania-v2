@@ -15,20 +15,32 @@
     <h3>{{ editando ? 'Atualizar' : 'Cadastrar' }} Categoria</h3>
 
     <span class="campo-obrigatorio">*</span>
-    <input type="text" placeholder="Nome da Categoria" [(ngModel)]="nome" />
+    <input 
+      type="text" 
+      placeholder="Nome da Categoria" 
+      [(ngModel)]="nome" 
+    />
 
     <span class="campo-obrigatorio">*</span>
-    <textarea placeholder="Descrição da Categoria" [(ngModel)]="descricao"></textarea>
+    <textarea 
+      placeholder="Descrição da Categoria" 
+      [(ngModel)]="descricao">
+    </textarea>
 
-    <button class="btn-salvar" (click)="salvar()" [class.editando]="editando">
+    <button 
+      class="btn-salvar" 
+      (click)="salvar()" 
+      [class.editando]="editando"
+    >
       {{ editando ? 'Atualizar' : 'Salvar' }} <i class="bi bi-check"></i>
     </button>
 
     <p class="mensagem-erro">{{ erro }}</p>
   </div>
 
-  <!-- Lista -->
+  <!-- Lista de Categorias -->
   <div *ngIf="!formularioVisivel">
+
     <div class="top-bar-lista">
       <input
         type="text"
@@ -46,12 +58,19 @@
       </div>
     </div>
 
-    <div id="itensMenuCotainer" cdkDropList (cdkDropListDropped)="drop($event)">
+    <div 
+      id="itensMenuCotainer" 
+      cdkDropList 
+      (cdkDropListDropped)="drop($event)"
+    >
       <div
         class="itemMenuCard"
         *ngFor="let cat of categoriasFiltradas"
         cdkDrag
         [cdkDragDisabled]="!editMode"
+        (cdkDragStarted)="onDragStart($event, cat)"
+        (cdkDragEnded)="onDragEnd($event, cat)"
+        [ngStyle]="{'cursor': getCursor(cat)}"
       >
         <div class="info">
           <div>
@@ -70,8 +89,10 @@
         </div>
       </div>
     </div>
+    
   </div>
 
+  <!-- Pop-up de Confirmação -->
   <app-confirm-pop-up
     [message]="'Tem certeza que deseja excluir esta categoria?'"
     [visible]="confirmPopupVisible"

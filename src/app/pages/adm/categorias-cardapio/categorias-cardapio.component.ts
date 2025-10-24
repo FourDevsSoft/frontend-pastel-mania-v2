@@ -25,6 +25,7 @@ import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-
   styleUrls: ['./categorias-cardapio.component.css']
 })
 export class CategoriasCardapioComponent implements OnInit {
+
   categorias: Categoria[] = [];
   formularioVisivel = false;
   editando = false;
@@ -39,6 +40,9 @@ export class CategoriasCardapioComponent implements OnInit {
   idParaExcluir: number | null = null;
 
   editMode = false;
+
+  // Para controlar quais cards estão sendo arrastados
+  dragging: Set<number> = new Set<number>();
 
   constructor() {}
 
@@ -129,5 +133,20 @@ export class CategoriasCardapioComponent implements OnInit {
   drop(event: CdkDragDrop<Categoria[]>) {
     moveItemInArray(this.categorias, event.previousIndex, event.currentIndex);
     localStorage.setItem('categorias', JSON.stringify(this.categorias));
+  }
+
+  /* ===================== CURSOR ===================== */
+  onDragStart(event: any, cat: Categoria) {
+    this.dragging.add(cat.id!);
+  }
+
+  onDragEnd(event: any, cat: Categoria) {
+    this.dragging.delete(cat.id!);
+  }
+
+  getCursor(cat: Categoria): string {
+    if (!this.editMode) return 'default';          // fora do modo edição
+    if (this.dragging.has(cat.id!)) return 'grabbing'; // segurando o card
+    return 'grab';                                 // editMode ativo, card parado
   }
 }
