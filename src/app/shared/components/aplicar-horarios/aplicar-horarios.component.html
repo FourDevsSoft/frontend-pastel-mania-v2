@@ -1,0 +1,45 @@
+<div class="modal-overlay" *ngIf="visivel">
+  <div class="modal-container">
+    <h3>Aplicar horários padrão</h3>
+
+    <div class="horarios">
+      <div>
+        <label>Horário de Início</label>
+        <input type="time" [(ngModel)]="horarioPadraoInicio">
+      </div>
+      <div>
+        <label>Horário de Fim</label>
+        <input type="time" [(ngModel)]="horarioPadraoFim">
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="selecao-header">
+      <span>Selecione os dias:</span>
+      <div class="botoes-acoes">
+        <button class="btn-acao" (click)="toggleTodos()">
+          <i class="bi bi-check2-square"></i> Todos
+        </button>
+        <button class="btn-acao" (click)="limparSelecao()">
+          <i class="bi bi-x-square"></i> Limpar
+        </button>
+      </div>
+    </div>
+
+    <div class="dias-grid">
+      <button 
+        *ngFor="let dia of diasSemana"
+        (click)="dia.selecionado = !dia.selecionado"
+        [class.selecionado]="dia.selecionado">
+        <i class="bi" [ngClass]="dia.selecionado ? 'bi-check-circle-fill' : 'bi-circle'"></i>
+        {{ dia.nome }}
+      </button>
+    </div>
+
+    <div class="acoes-finais">
+      <button class="btn-aplicar" (click)="aplicarHorariosPadrao()">Aplicar</button>
+      <button class="btn-cancelar" (click)="fecharModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
