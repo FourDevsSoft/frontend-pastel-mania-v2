@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, catchError, throwError } from 'rxjs';
 import { Categoria, CategoriasResponse } from '../../../shared/models/categoria.model';
 import { GlobalService } from '../../services/global.service';
 
@@ -8,34 +8,46 @@ import { GlobalService } from '../../services/global.service';
   providedIn: 'root'
 })
 export class CategoriaService {
-
   private apiUrl: string;
 
-  constructor(private globalService: GlobalService, private http: HttpClient) {
-    this.apiUrl = `${this.globalService.apiUrl}/category`;
+  constructor(private http: HttpClient, private globalService: GlobalService) {
+    this.apiUrl = `${this.globalService.apiUrl}/categorias`;
   }
 
-  /** 🔹 Lista todas as categorias */
   getAll(search?: string): Observable<Categoria[]> {
-    let url = this.apiUrl;
+    let url = this.apiUrl + '?paginaAtual=1&itensPorPagina=300';
     if (search) url += `?search=${encodeURIComponent(search)}`;
-    return this.http.get<CategoriasResponse>(url).pipe(
-      map(res => res.data.categorias)
+  
+    // Removendo qualquer limitação de quantidade
+    return this.http.get<CategoriasResponse>(url, { withCredentials: true }).pipe(
+      map(res => res.data.categorias), // Retorna todas as categorias sem limitação
+      catchError(err => throwError(() => err.error || err))
     );
   }
 
-  /** 🔹 Cria nova categoria */
-  create(categoria: Categoria): Observable<any> {
-    return this.http.post(this.apiUrl, categoria);
+  create(categoria: Categoria): Observable<Categoria> {
+    return this.http.post<Categoria>(this.apiUrl, categoria, { withCredentials: true }).pipe(
+      catchError(err => throwError(() => err.error || err))
+    );
   }
 
-  /** 🔹 Atualiza uma categoria existente */
-  update(id: number, categoria: Categoria): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, categoria);
+  update(id: number, categoria: Categoria): Observable<Categoria> {
+    return this.http.put<Categoria>(`${this.apiUrl}/${id}`, categoria, { withCredentials: true }).pipe(
+      catchError(err => throwError(() => err.error || err))
+    );
   }
 
-  /** 🔹 Exclui uma categoria */
-  delete(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { withCredentials: true }).pipe(
+      catchError(err => throwError(() => err.error || err))
+    );
   }
+
+  updateOrdem(ordem: { categorias: { id_categoria: number; ordem: number }[] }): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/ordem`, ordem, { withCredentials: true }).pipe(
+      catchError(err => throwError(() => err.error || err))
+    );
+}
+
+
 }

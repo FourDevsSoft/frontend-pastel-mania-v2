@@ -63,32 +63,40 @@
       cdkDropList 
       (cdkDropListDropped)="drop($event)"
     >
-      <div
-        class="itemMenuCard"
-        *ngFor="let cat of categoriasFiltradas"
-        cdkDrag
-        [cdkDragDisabled]="!editMode"
-        (cdkDragStarted)="onDragStart($event, cat)"
-        (cdkDragEnded)="onDragEnd($event, cat)"
-        [ngStyle]="{'cursor': getCursor(cat)}"
-      >
-        <div class="info">
-          <div>
-            <strong>{{ cat.nome }}</strong>
-            <p>{{ cat.descricao }}</p>
-          </div>
+      <div 
+  id="itensMenuCotainer" 
+  cdkDropList 
+  (cdkDropListDropped)="drop($event)"
+>
+  <div
+    class="itemMenuCard"
+    *ngFor="let cat of categoriasFiltradas; trackBy: trackById"
+    cdkDrag
+    [cdkDragDisabled]="!editMode"
+    (cdkDragStarted)="onDragStart($event, cat)"
+    (cdkDragEnded)="onDragEnd($event, cat)"
+    [ngStyle]="{'cursor': getCursor(cat)}"
+  >
+    <div class="info">
+      <div>
+        <strong>{{ cat.nome }}</strong>
+        <p>{{ cat.descricao }}</p>
+      </div>
 
-          <div class="acoes-card">
-            <span class="editar" title="Editar" (click)="preencherFormularioParaEdicao(cat)">
-              <i class="bi bi-pencil-square"></i>
-            </span>
-            <span class="excluir" title="Excluir" (click)="toogleDeletar(cat.id!)">
-              <i class="bi bi-trash-fill"></i>
-            </span>
-          </div>
-        </div>
+      <div class="acoes-card">
+        <span class="editar" title="Editar" (click)="preencherFormularioParaEdicao(cat); $event.stopPropagation()">
+          <i class="bi bi-pencil-square"></i>
+        </span>
+        
+        <span class="excluir" title="Excluir" (click)="toogleDeletar(cat.id!); $event.stopPropagation()">
+          <i class="bi bi-trash-fill"></i>
+        </span>
+        
       </div>
     </div>
+  </div>
+</div>
+
     
   </div>
 

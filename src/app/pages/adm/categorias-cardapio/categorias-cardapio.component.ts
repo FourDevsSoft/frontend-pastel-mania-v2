@@ -6,8 +6,10 @@ import { BannerComponent } from '../../../shared/components/adm/banner/banner.co
 import { ConfirmPopUpComponent } from '../../../shared/components/globais/confirm-pop-up/confirm-pop-up.component';
 import { AlertComponent } from '../../../shared/components/globais/alert/alert.component';
 import { Categoria } from '../../../shared/models/categoria.model';
-
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CategoriaService } from '../../../core/services/categoria/categoria.service';
+import { AlertService } from '../../../core/services/alertService/alert.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-categorias-cardapio',
@@ -40,14 +42,16 @@ export class CategoriasCardapioComponent implements OnInit {
   idParaExcluir: number | null = null;
 
   editMode = false;
-
-  // Para controlar quais cards estão sendo arrastados
   dragging: Set<number> = new Set<number>();
 
-  constructor() {}
+  constructor(
+    private categoriaService: CategoriaService,
+    private alertService: AlertService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.carregarCategorias();
+    this.carregarCategorias(); // Carrega todas as categorias ao inicializar o componente
   }
 
   get categoriasFiltradas(): Categoria[] {
@@ -64,12 +68,17 @@ export class CategoriasCardapioComponent implements OnInit {
   }
 
   preencherFormularioParaEdicao(categoria: Categoria): void {
-    if (!categoria.id) return;
+    const id = categoria.id ?? categoria.id_categoria;
+    if (!id) return;
+
+    // Mostrar formulário
     this.formularioVisivel = true;
     this.editando = true;
-    this.idEditando = categoria.id;
-    this.nome = categoria.nome;
-    this.descricao = categoria.descricao;
+    this.idEditando = id;
+
+    // Preencher campos do formulário
+    this.nome = categoria.nome ?? '';
+    this.descricao = categoria.descricao ?? '';
   }
 
   salvar(): void {
@@ -77,48 +86,123 @@ export class CategoriasCardapioComponent implements OnInit {
       this.erro = 'Preencha todos os campos obrigatórios';
       return;
     }
-
     this.erro = '';
 
-    if (this.editando && this.idEditando !== null) {
-      const index = this.categorias.findIndex(c => c.id === this.idEditando);
-      if (index > -1) {
-        this.categorias[index].nome = this.nome.trim();
-        this.categorias[index].descricao = this.descricao.trim();
-        this.categorias[index].dataAtualizacao = new Date().toISOString();
-      }
-    } else {
-      const novaCategoria: Categoria = {
-        id: this.categorias.length ? Math.max(...this.categorias.map(c => c.id!)) + 1 : 1,
-        nome: this.nome.trim(),
-        descricao: this.descricao.trim(),
-        dataCriacao: new Date().toISOString(),
-        dataAtualizacao: new Date().toISOString()
-      };
-      this.categorias.unshift(novaCategoria);
-    }
+    const categoriaData: Categoria = {
+      nome: this.nome.trim(),
+      descricao: this.descricao.trim()
+    };
 
-    this.limparFormulario();
-    localStorage.setItem('categorias', JSON.stringify(this.categorias));
+    if (this.editando && this.idEditando !== null) {
+      this.categoriaService.update(this.idEditando, categoriaData).subscribe({
+        next: updated => {
+          // Recarregar as categorias após a atualização
+          this.carregarCategorias();
+          this.limparFormulario();
+          this.alertService.exibir('success', 'Categoria atualizada com sucesso!');
+        },
+        error: err => {
+          const mensagem = err?.errorMessages?.join(', ') || 'Erro ao atualizar categoria';
+          this.alertService.exibir('error', mensagem);
+        }
+      });
+    } else {
+      this.categoriaService.create(categoriaData).subscribe({
+        next: created => {
+          // Recarregar as categorias após a criação
+          this.carregarCategorias();
+          this.limparFormulario();
+          this.alertService.exibir('success', 'Categoria criada com sucesso!');
+        },
+        error: err => {
+          const mensagem = err?.errorMessages?.join(', ') || 'Erro ao criar categoria';
+          this.alertService.exibir('error', mensagem);
+        }
+      });
+    }
+  }
+
+  carregarCategorias(): void {
+    this.categoriaService.getAll(this.termoBusca).subscribe({
+      next: data => {
+        // Atualizar categorias sem excluir as existentes
+        this.categorias = data.map(c => ({ ...c, id: c.id ?? c.id_categoria }));
+        this.cdr.detectChanges(); // Forçar atualização da UI
+      },
+      error: err => {
+        const mensagem = err?.errorMessages?.join(', ') || 'Erro ao carregar categorias';
+        this.alertService.exibir('error', mensagem);
+      }
+    });
+  }
+
+  toogleDeletar(id?: number): void {
+    if (!id) return;
+    this.idParaExcluir = id;
+    this.confirmPopupVisible = true;
+  }
+
+  deletarCategoria(id?: number): void {
+    if (!id) return;
+    this.categoriaService.delete(id).subscribe({
+      next: () => {
+        // Atualiza a lista após a exclusão de uma categoria
+        this.categorias = this.categorias.filter(c => (c.id ?? c.id_categoria) !== id);
+        this.confirmPopupVisible = false;
+        this.alertService.exibir('success', 'Categoria excluída com sucesso!');
+      },
+      error: err => {
+        const mensagem = err?.errorMessages?.join(', ') || 'Erro ao excluir categoria';
+        this.alertService.exibir('error', mensagem);
+      }
+    });
+  }
+
+  drop(event: CdkDragDrop<Categoria[]>): void {
+    // Atualiza a ordem das categorias localmente
+    moveItemInArray(this.categorias, event.previousIndex, event.currentIndex);
+
+    // Ajuste as ordens para começar de 1
+    const categoriasOrdem = {
+        categorias: this.categorias.map((categoria, index) => ({
+            id_categoria: categoria.id ?? categoria.id_categoria!,
+            ordem: index + 1 // Começa de 1 ao invés de 0
+        }))
+    };
+
+    // Envia a requisição com o formato correto
+    this.categoriaService.updateOrdem(categoriasOrdem).subscribe({
+        next: () => {
+            this.alertService.exibir('success', 'Ordem das categorias atualizada!');
+        },
+        error: err => {
+            const mensagem = err?.errorMessages?.join(', ') || 'Erro ao atualizar ordem';
+            this.alertService.exibir('error', mensagem);
+        }
+    });
+}
+
+
+  onDragStart(event: any, cat: Categoria) {
+    this.dragging.add(cat.id ?? cat.id_categoria!);
+  }
+
+  onDragEnd(event: any, cat: Categoria) {
+    this.dragging.delete(cat.id ?? cat.id_categoria!);
   }
 
   toggleEditar(): void {
     this.editMode = !this.editMode;
   }
 
-  carregarCategorias(): void {
-    this.categorias = JSON.parse(localStorage.getItem('categorias') || '[]');
+  trackById(index: number, cat: Categoria): number | undefined {
+    return cat.id ?? cat.id_categoria;
   }
 
-  toogleDeletar(id: number): void {
-    this.idParaExcluir = id;
-    this.confirmPopupVisible = true;
-  }
-
-  deletarCategoria(id: number): void {
-    this.categorias = this.categorias.filter(c => c.id !== id);
-    localStorage.setItem('categorias', JSON.stringify(this.categorias));
-    this.confirmPopupVisible = false;
+  getCursor(cat: Categoria): string {
+    if (!this.editMode) return 'default';
+    if (this.dragging.has(cat.id ?? cat.id_categoria!)) return 'grabbing';
+    return 'grab';
   }
 
   limparFormulario(): void {
@@ -128,25 +212,5 @@ export class CategoriasCardapioComponent implements OnInit {
     this.idEditando = null;
     this.formularioVisivel = false;
     this.erro = '';
-  }
-
-  drop(event: CdkDragDrop<Categoria[]>) {
-    moveItemInArray(this.categorias, event.previousIndex, event.currentIndex);
-    localStorage.setItem('categorias', JSON.stringify(this.categorias));
-  }
-
-  /* ===================== CURSOR ===================== */
-  onDragStart(event: any, cat: Categoria) {
-    this.dragging.add(cat.id!);
-  }
-
-  onDragEnd(event: any, cat: Categoria) {
-    this.dragging.delete(cat.id!);
-  }
-
-  getCursor(cat: Categoria): string {
-    if (!this.editMode) return 'default';          // fora do modo edição
-    if (this.dragging.has(cat.id!)) return 'grabbing'; // segurando o card
-    return 'grab';                                 // editMode ativo, card parado
   }
 }
